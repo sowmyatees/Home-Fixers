@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">HomeFixers</string>
+    <string name="todo">todo</string>
+    <string name="home_fixers">Home Fixers</string>
+    <string name="login">Login</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="create_account">Create Account</string>
+</resources>

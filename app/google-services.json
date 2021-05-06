@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "334514274061",
+    "project_id": "homefixers-e4a0c",
+    "storage_bucket": "homefixers-e4a0c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:334514274061:android:9f2983d28b1f5fd3c2fa44",
+        "android_client_info": {
+          "package_name": "uk.ac.tees.aad.W9456492"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "334514274061-n03siq7o6n0qcvb0vsjdojkarojs0446.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLBUJ4_rTfdDwPg6r4XR9kaYcqampKgI8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "334514274061-n03siq7o6n0qcvb0vsjdojkarojs0446.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
