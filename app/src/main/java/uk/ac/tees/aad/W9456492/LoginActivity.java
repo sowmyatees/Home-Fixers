@@ -9,6 +9,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -48,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         create_account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                startActivity(new Intent(getApplicationContext(),CreateAccount.class));
             }
         });
     }
@@ -61,11 +62,13 @@ public class LoginActivity extends AppCompatActivity {
            @Override
            public void onSuccess(AuthResult authResult) {
                firebaseUser = authResult.getUser();
+               startActivity(new Intent(getApplicationContext(),MainActivity.class));
            }
        }).addOnFailureListener(new OnFailureListener() {
            @Override
            public void onFailure(@NonNull Exception e) {
                firebaseUser = null;
+               Toast.makeText(getApplicationContext(),"Invalid Login Details",Toast.LENGTH_SHORT).show();
            }
        });
     }
@@ -95,8 +98,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if(FirebaseAuth.getInstance().getCurrentUser() == null){
-            startActivity(new Intent(this,CreateAccount.class));
+        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+            startActivity(new Intent(this,MainActivity.class));
         }
     }
 
