@@ -52,7 +52,7 @@ public class AddImage extends AppCompatActivity {
         firebaseUser = firebaseAuth.getCurrentUser();
         img = findViewById(R.id.imageView2);
         continueBtn = findViewById(R.id.cont);
-        continueBtn.setActivated(false);
+        continueBtn.setEnabled(false);
         continueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,6 +111,7 @@ public class AddImage extends AppCompatActivity {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         thumb.compress(Bitmap.CompressFormat.JPEG,90,bytes);
         byte bb[] = bytes.toByteArray();
+        img.setImageBitmap(thumb);
 
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         imageFileName = "J" + timeStamp + "i.jpg";
@@ -120,16 +121,16 @@ public class AddImage extends AppCompatActivity {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                ref.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
-                    public void onComplete(@NonNull Task<Uri> task) {
-                        Toast.makeText(getApplicationContext(),  task.getResult().toString(),Toast.LENGTH_SHORT).show();
-                        Glide.with(getApplicationContext()).load(task.getResult().toString()).into(img);
+                    public void onSuccess(Uri uri) {
+                        Toast.makeText(getApplicationContext(),uri.toString(),Toast.LENGTH_SHORT).show();
+
                         SharedPreferences sharedPreferences   = getSharedPreferences("image",MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("image",imageFileName);
                         editor.apply();
-                        continueBtn.setActivated(true);
+                        continueBtn.setEnabled(true);
                     }
                 });
 

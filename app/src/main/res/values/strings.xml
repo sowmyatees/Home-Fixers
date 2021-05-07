@@ -16,4 +16,6 @@
     <string name="button">Button</string>
     <string name="add_image">Add Image</string>
     <string name="con">Confirm Booking</string>
+    <string name="your_booking_is_successful">Your Booking is Successful</string>
+    <string name="our_agent_will_meet_at_the_work_locations_soon">Our agent will meet at the work location in one hour</string>
 </resources>
