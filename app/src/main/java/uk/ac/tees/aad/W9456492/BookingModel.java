@@ -6,6 +6,16 @@ public class BookingModel {
     float lng;
     String image;
     String date;
+    String type;
+
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public float getLat() {
         return lat;

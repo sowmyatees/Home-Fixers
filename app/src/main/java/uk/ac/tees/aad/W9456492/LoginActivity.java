@@ -11,8 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -61,16 +63,16 @@ public class LoginActivity extends AppCompatActivity {
        FirebaseAuth.getInstance().signInWithEmailAndPassword(email.getText().toString(),password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
            @Override
            public void onSuccess(AuthResult authResult) {
-               firebaseUser = authResult.getUser();
+               Toast.makeText(getApplicationContext(),"Login Successful",Toast.LENGTH_SHORT).show();
                startActivity(new Intent(getApplicationContext(),MainActivity.class));
            }
        }).addOnFailureListener(new OnFailureListener() {
            @Override
            public void onFailure(@NonNull Exception e) {
-               firebaseUser = null;
-               Toast.makeText(getApplicationContext(),"Invalid Login Details",Toast.LENGTH_SHORT).show();
+               Toast.makeText(getApplicationContext(),"Enter Correct Details",Toast.LENGTH_SHORT).show();
            }
        });
+
     }
 
     private void validate() {

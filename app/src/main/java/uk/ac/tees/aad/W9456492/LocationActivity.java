@@ -26,6 +26,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class LocationActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -37,6 +38,13 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
 
+        String value =  getIntent().getExtras().get("option").toString();
+
+        SharedPreferences sharedPreferences = getSharedPreferences("type",MODE_PRIVATE);
+        SharedPreferences.Editor edit = sharedPreferences.edit();
+        edit.putString("type",value);
+        edit.apply();
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map2);
         mapFragment.getMapAsync(this);
@@ -46,7 +54,7 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),AddImage.class));
 
-                Toast.makeText(getApplicationContext(),latLng.latitude+" ",Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -109,5 +117,12 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
             }
 
         }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+        startActivity(new Intent(getApplicationContext(),MainActivity.class));
     }
 }

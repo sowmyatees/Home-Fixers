@@ -16,13 +16,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button gardening;
     Button cleaning;
     Button logout;
+    Button bookings;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        bookings  = findViewById(R.id.bookings);
+        bookings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ShowBookings.class));
+            }
+        });
         logout  = findViewById(R.id.logout);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+            }
+        });
 
         plumbing = findViewById(R.id.plumbing);
         plumbing.setOnClickListener(this);
@@ -34,31 +50,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cleaning.setOnClickListener(this);
 
     }
-    
+
+
+
     @Override
     public void onClick(View v) {
 
         Intent i = new Intent(getApplicationContext(),LocationActivity.class);
             switch (v.getId()) {
                 case R.id.plumbing:
-                    i.putExtra("option","plumbing");
+                    i.putExtra("option","Plumbing");
                     break;
                 case R.id.eletrician:
-                    i.putExtra("option","ele");
+                    i.putExtra("option","Electric Work");
                     break;
                 case R.id.gardening:
-                    i.putExtra("option","gardening");
+                    i.putExtra("option","Gardening");
                     break;
                 case R.id.cleaning:
-                    i.putExtra("option","cleaning");
+                    i.putExtra("option","Cleaning");
                     break;
-                case R.id.logout:
-                    FirebaseAuth.getInstance().signOut();
-                    startActivity(new Intent(getApplicationContext(),LoginActivity.class));
-                    break;
+
                 default:
                     break;
             }
         startActivity(i);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

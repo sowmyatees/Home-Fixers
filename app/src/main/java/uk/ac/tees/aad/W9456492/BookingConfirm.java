@@ -2,6 +2,7 @@ package uk.ac.tees.aad.W9456492;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -28,12 +29,17 @@ public class BookingConfirm extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("image",MODE_PRIVATE);
         String image = sharedPreferences.getString("image","");
+
         SimpleDateFormat
         dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         String date = dateFormat.format(Calendar.getInstance().getTime());
 
+        sharedPreferences = getSharedPreferences("type",MODE_PRIVATE);
+        String type = sharedPreferences.getString("type","");
+
 
         firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseAuth  = FirebaseAuth.getInstance();
         firebaseUser =  firebaseAuth.getCurrentUser();
 
         BookingModel model = new BookingModel();
@@ -41,9 +47,18 @@ public class BookingConfirm extends AppCompatActivity {
         model.setImage(image);
         model.setLat(lat);
         model.setLng(lng);
+        model.setType(type);
+
         firebaseDatabase.getReference("bookings").child(firebaseUser.getUid()).push().setValue(model);
 
 
 
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+        startActivity(new Intent(getApplicationContext(),MainActivity.class));
     }
 }
