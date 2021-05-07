@@ -5,8 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class BookingConfirm extends AppCompatActivity {
 
+    FirebaseDatabase firebaseDatabase;
+    FirebaseUser firebaseUser;
+    FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +28,20 @@ public class BookingConfirm extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("image",MODE_PRIVATE);
         String image = sharedPreferences.getString("image","");
+        SimpleDateFormat
+        dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        String date = dateFormat.format(Calendar.getInstance().getTime());
+
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseUser =  firebaseAuth.getCurrentUser();
+
+        BookingModel model = new BookingModel();
+        model.setDate(date);
+        model.setImage(image);
+        model.setLat(lat);
+        model.setLng(lng);
+        firebaseDatabase.getReference("bookings").child(firebaseUser.getUid()).push().setValue(model);
 
 
 

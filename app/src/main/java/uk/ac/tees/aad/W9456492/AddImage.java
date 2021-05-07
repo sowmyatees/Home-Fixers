@@ -18,6 +18,7 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -42,21 +43,26 @@ public class AddImage extends AppCompatActivity {
     ImageView img;
     String imageFileName;
     Button continueBtn;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_image);
 
+
         firebaseAuth  = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         img = findViewById(R.id.imageView2);
         continueBtn = findViewById(R.id.cont);
+        progressBar  = findViewById(R.id.progressBar);
+
+        progressBar.setVisibility(View.INVISIBLE);
         continueBtn.setEnabled(false);
         continueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent());
+                startActivity(new Intent(getApplicationContext(),BookingConfirm.class));
             }
         });
 
@@ -66,6 +72,7 @@ public class AddImage extends AppCompatActivity {
         capture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
                 askCameraPermissions();
             }
         });
@@ -124,12 +131,12 @@ public class AddImage extends AppCompatActivity {
                 ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Toast.makeText(getApplicationContext(),uri.toString(),Toast.LENGTH_SHORT).show();
 
                         SharedPreferences sharedPreferences   = getSharedPreferences("image",MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("image",imageFileName);
                         editor.apply();
+                        progressBar.setVisibility(View.INVISIBLE);
                         continueBtn.setEnabled(true);
                     }
                 });

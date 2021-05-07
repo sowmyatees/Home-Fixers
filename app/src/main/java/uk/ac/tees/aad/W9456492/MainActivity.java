@@ -7,17 +7,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button plumbing;
     Button ele;
     Button gardening;
     Button cleaning;
+    Button logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        logout  = findViewById(R.id.logout);
 
         plumbing = findViewById(R.id.plumbing);
         plumbing.setOnClickListener(this);
@@ -46,6 +51,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 case R.id.cleaning:
                     i.putExtra("option","cleaning");
+                    break;
+                case R.id.logout:
+                    FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                     break;
                 default:
                     break;
