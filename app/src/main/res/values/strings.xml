@@ -12,4 +12,8 @@
     <string name="gardening">Gardening \n15/hour</string>
     <string name="select_service">SELECT SERVICE</string>
     <string name="electrician">Electrician \n 15/hour</string>
+    <string name="use_current_location">Use Current Location</string>
+    <string name="button">Button</string>
+    <string name="add_image">Add Image</string>
+    <string name="con">Confirm Booking</string>
 </resources>

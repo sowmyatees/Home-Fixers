@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button ele;
     Button gardening;
     Button cleaning;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,11 +29,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cleaning.setOnClickListener(this);
 
     }
-
+    
     @Override
     public void onClick(View v) {
 
-        Intent i = new Intent();
+        Intent i = new Intent(getApplicationContext(),LocationActivity.class);
             switch (v.getId()) {
                 case R.id.plumbing:
                     i.putExtra("option","plumbing");
@@ -50,6 +51,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
             }
         startActivity(i);
-
     }
 }
